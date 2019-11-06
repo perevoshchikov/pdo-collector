@@ -125,4 +125,47 @@ class Profile
     {
         return $this->exception;
     }
+
+    /**
+     * @return string
+     */
+    public function getSqlWithParams(): string
+    {
+        $sql = $this->getSql();
+
+        foreach ($this->getParameters() as $key => $value) {
+            $value = $this->formatParam($value);
+
+            if (\is_numeric($key)) {
+                $pos = \strpos($sql, '?');
+                $sql = \substr($sql, 0, $pos)
+                    . $value
+                    . substr($sql, $pos + 1);
+            } else {
+                $sql = \str_replace($key, $value, $sql);
+            }
+        }
+
+        return $sql;
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return string
+     */
+    protected function formatParam($value): string
+    {
+        switch (\gettype($value)) {
+            case 'integer':
+            case 'double':
+                return (string) $value;
+            case 'boolean':
+                return $value ? 'true' : 'false';
+            case 'null':
+                return 'null';
+            default:
+                return \sprintf('"%s"', \addslashes($value));
+        }
+    }
 }
