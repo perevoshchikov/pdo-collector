@@ -129,7 +129,7 @@ class Profile
     /**
      * @return string
      */
-    public function getSqlWithParams(): string
+    public function getSqlWithParameters(): string
     {
         $sql = $this->getSql();
 
