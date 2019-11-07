@@ -2,8 +2,6 @@
 
 namespace Anper\PdoCollector;
 
-use Anper\PdoCollector\TraceableStatement;
-
 /**
  * @param \PDO $pdo
  * @param callable $collector
