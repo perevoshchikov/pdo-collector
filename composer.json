@@ -1,7 +1,7 @@
 {
     "name": "anper/pdo-collector",
     "type": "library",
-    "description": "",
+    "description": "Collect PDO statement.",
     "keywords": [
         "pdo",
         "collector"
@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php" : "~7.1",
+        "php" : "^7.1",
         "ext-pdo": "*"
     },
     "require-dev": {
