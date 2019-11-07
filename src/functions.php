@@ -2,7 +2,7 @@
 
 namespace Anper\PdoCollector;
 
-use Anper\PdoCollector\Statement;
+use Anper\PdoCollector\TraceableStatement;
 
 /**
  * @param \PDO $pdo
@@ -12,6 +12,6 @@ function register_pdo_collector(\PDO $pdo, callable $collector)
 {
     $pdo->setAttribute(
         \PDO::ATTR_STATEMENT_CLASS,
-        [Statement::class, [$collector]]
+        [TraceableStatement::class, [$collector]]
     );
 }
