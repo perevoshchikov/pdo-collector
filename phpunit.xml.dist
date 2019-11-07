@@ -22,4 +22,9 @@
     <logging>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
     </logging>
+    <php>
+        <env name="DB_DSN" value="mysql:host=localhost" />
+        <env name="DB_USER" value="" />
+        <env name="DB_PASSWD" value="" />
+    </php>
 </phpunit>
