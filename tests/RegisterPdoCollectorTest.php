@@ -7,22 +7,13 @@ use Anper\PdoCollector\TraceableStatement;
 use PHPUnit\Framework\TestCase;
 use function Anper\PdoCollector\register_pdo_collector;
 
+/**
+ * Class RegisterPdoCollectorTest
+ * @package Anper\PdoCollector\Tests
+ */
 class RegisterPdoCollectorTest extends TestCase
 {
-    /**
-     * @var \PDO
-     */
-    protected $pdo;
-
-    protected function setUp()
-    {
-        $this->pdo = new \PDO(\getenv('DB_DSN'), \getenv('DB_USER'), \getenv('DB_PASSWD'));
-    }
-
-    protected function tearDown()
-    {
-        $this->pdo = null;
-    }
+    use PdoTrait;
 
     public function testRegisterCustomCollector(): void
     {
