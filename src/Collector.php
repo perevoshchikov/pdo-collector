@@ -23,9 +23,11 @@ class Collector
      */
     public function __construct(\PDO $pdo)
     {
-        $this->pdo = $pdo;
+        register_pdo_collector($pdo, function (Profile $profile) {
+            $this->profiles[] = $profile;
+        });
 
-        register_pdo_collector($pdo, $this);
+        $this->pdo = $pdo;
     }
 
     /**
@@ -42,13 +44,5 @@ class Collector
     public function getProfiles(): array
     {
         return $this->profiles;
-    }
-
-    /**
-     * @param Profile $profile
-     */
-    public function __invoke(Profile $profile)
-    {
-        $this->profiles[] = $profile;
     }
 }
