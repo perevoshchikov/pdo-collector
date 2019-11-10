@@ -11,7 +11,7 @@ use function Anper\PdoCollector\register_pdo_collector;
  * Class RegisterPdoCollectorTest
  * @package Anper\PdoCollector\Tests
  */
-class RegisterPdoCollectorTest extends TestCase
+class RegisterCollectorTest extends TestCase
 {
     use PdoTrait;
 
@@ -24,7 +24,7 @@ class RegisterPdoCollectorTest extends TestCase
         $this->assertCollector($collector);
     }
 
-    public function testRegisterFromCollector(): void
+    public function testRegisterCollector(): void
     {
         $collector = new Collector($this->pdo);
 
