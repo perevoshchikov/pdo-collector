@@ -1,7 +1,7 @@
 {
     "name": "anper/pdo-collector",
     "type": "library",
-    "description": "Collect PDO statement.",
+    "description": "PHP PDO statement collector.",
     "keywords": [
         "pdo",
         "collector"
