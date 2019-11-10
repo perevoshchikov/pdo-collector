@@ -22,9 +22,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-      - name: DB
+      - name: Install Mysql
         uses: mirromutth/mysql-action@v1.1
         with:
+          host port: 9009
+          container port: 9008
           mysql user: user
           mysql password: 123
       - name: Install PHP
@@ -37,5 +39,5 @@ jobs:
         env:
           DB_USER: user
           DB_PASSWD: 123
-          DB_DSN: mysql:host=localhost
+          DB_DSN: mysql:host=localhost;port=9009
         run: vendor/bin/phpunit
