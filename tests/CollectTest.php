@@ -5,6 +5,7 @@ namespace Anper\PdoCollector\Tests;
 use Anper\PdoCollector\Collector;
 use Anper\PdoCollector\Profile;
 use PHPUnit\Framework\TestCase;
+
 use function Anper\PdoCollector\register_pdo_collector;
 
 /**

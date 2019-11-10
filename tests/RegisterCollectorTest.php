@@ -5,6 +5,7 @@ namespace Anper\PdoCollector\Tests;
 use Anper\PdoCollector\Collector;
 use Anper\PdoCollector\TraceableStatement;
 use PHPUnit\Framework\TestCase;
+
 use function Anper\PdoCollector\register_pdo_collector;
 
 /**
@@ -17,7 +18,8 @@ class RegisterCollectorTest extends TestCase
 
     public function testRegisterCustomCollector(): void
     {
-        $collector = function () {};
+        $collector = function () {
+        };
 
         register_pdo_collector($this->pdo, $collector);
 
