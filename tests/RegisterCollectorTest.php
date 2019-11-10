@@ -1,12 +1,12 @@
 <?php
 
-namespace Anper\PdoCollector\Tests;
+namespace Anper\Pdo\StatementCollector\Tests;
 
-use Anper\PdoCollector\Collector;
-use Anper\PdoCollector\TraceableStatement;
+use Anper\Pdo\StatementCollector\Collector;
+use Anper\Pdo\StatementCollector\TraceableStatement;
 use PHPUnit\Framework\TestCase;
 
-use function Anper\PdoCollector\register_pdo_collector;
+use function Anper\Pdo\StatementCollector\register_pdo_collector;
 
 /**
  * Class RegisterPdoCollectorTest

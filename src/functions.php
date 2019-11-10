@@ -1,6 +1,6 @@
 <?php
 
-namespace Anper\PdoCollector;
+namespace Anper\Pdo\StatementCollector;
 
 /**
  * @param \PDO $pdo

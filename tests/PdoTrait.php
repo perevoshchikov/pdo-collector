@@ -1,6 +1,6 @@
 <?php
 
-namespace Anper\PdoCollector\Tests;
+namespace Anper\Pdo\StatementCollector\Tests;
 
 /**
  * Trait PdoTrait

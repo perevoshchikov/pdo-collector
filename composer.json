@@ -1,12 +1,12 @@
 {
-    "name": "anper/pdo-collector",
+    "name": "anper/pdo-statement-collector",
     "type": "library",
     "description": "PHP PDO statement collector.",
     "keywords": [
         "pdo",
         "collector"
     ],
-    "homepage": "https://github.com/perevoshchikov/pdo-collector",
+    "homepage": "https://github.com/perevoshchikov/pdo-statement-collector",
     "license": "MIT",
     "authors": [
         {
@@ -26,13 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Anper\\PdoCollector\\": "src"
+            "Anper\\Pdo\\StatementCollector\\": "src"
         },
         "files": ["src/functions.php"]
     },
     "autoload-dev": {
         "psr-4": {
-            "Anper\\PdoCollector\\Tests\\": "tests"
+            "Anper\\Pdo\\StatementCollector\\Tests\\": "tests"
         }
     },
     "scripts": {
