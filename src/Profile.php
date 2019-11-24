@@ -26,7 +26,7 @@ class Profile
     /**
      * @var float
      */
-    protected $duration = 0;
+    protected $duration = 0.0;
 
     /**
      * @var int int
@@ -50,7 +50,7 @@ class Profile
         string $sql,
         array $params = [],
         int $rowCount = 0,
-        float $duration = 0,
+        float $duration = 0.0,
         int $memoryUsage = 0,
         \Exception $e = null
     ) {
@@ -138,7 +138,7 @@ class Profile
 
             if (\is_numeric($key)) {
                 $pos = \strpos($sql, '?');
-                $sql = \substr($sql, 0, $pos)
+                $sql = \substr($sql, 0, (int) $pos)
                     . $value
                     . substr($sql, $pos + 1);
             } else {

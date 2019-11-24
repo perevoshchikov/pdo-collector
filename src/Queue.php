@@ -9,7 +9,7 @@ namespace Anper\Pdo\StatementCollector;
 class Queue
 {
     /**
-     * @var callable[]
+     * @var callable[][]
      */
     protected static $collectors = [];
 
@@ -78,7 +78,7 @@ class Queue
     }
 
     /**
-     * @return callable[]
+     * @return callable[][]
      */
     public static function all(): array
     {
