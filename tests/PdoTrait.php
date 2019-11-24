@@ -15,7 +15,11 @@ trait PdoTrait
 
     protected function setUp(): void
     {
-        $this->pdo = new \PDO(\getenv('DB_DSN'), \getenv('DB_USER'), \getenv('DB_PASSWD'));
+        $this->pdo = new \PDO(
+            \getenv('DB_DSN'),
+            \getenv('DB_USER'),
+            \getenv('DB_PASSWD')
+        );
     }
 
     protected function tearDown(): void
