@@ -29,6 +29,7 @@ jobs:
         with:
           mysql user: user
           mysql password: 123
+          mysql version: '5.7'
       - name: Install PHP
         uses: shivammathur/setup-php@master
         with:
