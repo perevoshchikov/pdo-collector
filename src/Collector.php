@@ -20,10 +20,13 @@ class Collector
 
     /**
      * @param \PDO $pdo
+     *
+     * @throws Exception
      */
     public function __construct(\PDO $pdo)
     {
-        register_pdo_collector($pdo, $this);
+        register_pdo_collector($pdo, $this, true);
+
         $this->pdo = $pdo;
     }
 

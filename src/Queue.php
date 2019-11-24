@@ -74,7 +74,7 @@ class Queue
      */
     public static function get(string $connection): array
     {
-        return static::$collectors[$connection] ?? [];
+        return \array_values(static::$collectors[$connection] ?? []);
     }
 
     /**
@@ -83,5 +83,19 @@ class Queue
     public static function all(): array
     {
         return static::$collectors;
+    }
+
+    /**
+     * @param string $connection
+     *
+     * @return bool
+     */
+    public static function clear(string $connection): bool
+    {
+        if ($has = isset(static::$collectors[$connection])) {
+            unset(static::$collectors[$connection]);
+        }
+
+        return $has;
     }
 }
