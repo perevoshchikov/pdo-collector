@@ -8,7 +8,7 @@ use PDO;
  * Class Statement
  * @package Anper\PdoCollector
  */
-class TraceableStatement extends \PDOStatement
+class Statement extends \PDOStatement
 {
     /**
      * @var array

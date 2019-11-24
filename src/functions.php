@@ -20,18 +20,18 @@ function register_pdo_collector(
     $connection = \spl_object_hash($pdo);
 
     if ($prepend) {
-        StaticQueue::unshift($connection, $collector);
+        Queue::unshift($connection, $collector);
     } else {
-        StaticQueue::push($connection, $collector);
+        Queue::push($connection, $collector);
     }
 
     $collect = static function ($profile) use ($connection) {
-        StaticQueue::collect($connection, $profile);
+        Queue::collect($connection, $profile);
     };
 
     $result = $pdo->setAttribute(
         \PDO::ATTR_STATEMENT_CLASS,
-        [TraceableStatement::class, [$collect]]
+        [Statement::class, [$collect]]
     );
 
     if ($result === false && $throw) {
@@ -49,5 +49,5 @@ function register_pdo_collector(
  */
 function unregister_pdo_collector(\PDO $pdo, callable $collector): bool
 {
-    return StaticQueue::remove(\spl_object_hash($pdo), $collector);
+    return Queue::remove(\spl_object_hash($pdo), $collector);
 }

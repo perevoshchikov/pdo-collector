@@ -6,7 +6,7 @@ namespace Anper\Pdo\StatementCollector;
  * Class StaticQueue
  * @package Anper\Pdo\StatementCollector
  */
-class StaticQueue
+class Queue
 {
     /**
      * @var callable[]
