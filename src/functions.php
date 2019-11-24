@@ -5,24 +5,49 @@ namespace Anper\Pdo\StatementCollector;
 /**
  * @param \PDO $pdo
  * @param callable $collector
+ * @param bool $throw
+ * @param bool $prepend
+ *
+ * @return bool
+ * @throws Exception
  */
-function register_pdo_collector(\PDO $pdo, callable $collector)
-{
-    $attr = $pdo->getAttribute(\PDO::ATTR_STATEMENT_CLASS);
+function register_pdo_collector(
+    \PDO $pdo,
+    callable $collector,
+    bool $throw = true,
+    bool $prepend = false
+): bool {
+    $connection = \spl_object_hash($pdo);
 
-    if (\is_array($attr) && isset($attr[1])) {
-        $args = (array) $attr[1];
-        $prevCollector = $args[0] ?? null;
-
-        if ($prevCollector instanceof AggregateCollector) {
-            $collector = $prevCollector->addCollector($collector);
-        } else {
-            $collector = new AggregateCollector([$prevCollector, $collector]);
-        }
+    if ($prepend) {
+        StaticQueue::unshift($connection, $collector);
+    } else {
+        StaticQueue::push($connection, $collector);
     }
 
-    $pdo->setAttribute(
+    $collect = static function ($profile) use ($connection) {
+        StaticQueue::collect($connection, $profile);
+    };
+
+    $result = $pdo->setAttribute(
         \PDO::ATTR_STATEMENT_CLASS,
-        [TraceableStatement::class, [$collector]]
+        [TraceableStatement::class, [$collect]]
     );
+
+    if ($result === false && $throw) {
+        throw new Exception('Failed to register pdo collector.');
+    }
+
+    return $result;
+}
+
+/**
+ * @param \PDO $pdo
+ * @param callable $collector
+ *
+ * @return bool
+ */
+function unregister_pdo_collector(\PDO $pdo, callable $collector): bool
+{
+    return StaticQueue::remove(\spl_object_hash($pdo), $collector);
 }
