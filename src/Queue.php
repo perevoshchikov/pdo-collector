@@ -62,8 +62,26 @@ class Queue
      */
     public static function collect(string $connection, Profile $profile): void
     {
-        foreach (static::$collectors[$connection] ?? [] as $collector) {
+        foreach (static::get($connection) as $collector) {
             $collector($profile);
         }
+    }
+
+    /**
+     * @param string $connection
+     *
+     * @return callable[]
+     */
+    public static function get(string $connection): array
+    {
+        return static::$collectors[$connection] ?? [];
+    }
+
+    /**
+     * @return callable[]
+     */
+    public static function all(): array
+    {
+        return static::$collectors;
     }
 }
