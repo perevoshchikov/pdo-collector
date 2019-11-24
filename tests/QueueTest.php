@@ -26,8 +26,10 @@ class QueueTest extends TestCase
 
     public function testPush(): void
     {
-        $collector1 = function ($a) {};
-        $collector2 = function ($b) {};
+        $collector1 = function ($a) {
+        };
+        $collector2 = function ($b) {
+        };
 
         Queue::push($this->connection, $collector1);
 
@@ -40,8 +42,10 @@ class QueueTest extends TestCase
 
     public function testUnshift(): void
     {
-        $collector1 = function ($a) {};
-        $collector2 = function ($b) {};
+        $collector1 = function ($a) {
+        };
+        $collector2 = function ($b) {
+        };
 
         Queue::unshift($this->connection, $collector1);
 
@@ -54,9 +58,12 @@ class QueueTest extends TestCase
 
     public function testRemove(): void
     {
-        $collector1 = function ($a) {};
-        $collector2 = function ($b) {};
-        $collector3 = function ($c) {};
+        $collector1 = function ($a) {
+        };
+        $collector2 = function ($b) {
+        };
+        $collector3 = function ($c) {
+        };
 
         Queue::push($this->connection, $collector1);
         Queue::push($this->connection, $collector2);

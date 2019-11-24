@@ -45,8 +45,10 @@ class RegisterTest extends TestCase
 
     public function testRegister(): void
     {
-        $collector1 = function ($a) {};
-        $collector2 = function ($b) {};
+        $collector1 = function ($a) {
+        };
+        $collector2 = function ($b) {
+        };
 
         $result1 = register_pdo_collector($this->pdo, $collector1);
         $result2 = register_pdo_collector($this->pdo, $collector2);
@@ -86,8 +88,10 @@ class RegisterTest extends TestCase
     {
         $pdo = $this->pdo();
 
-        $collector1 = function ($a) {};
-        $collector2 = function ($b) {};
+        $collector1 = function ($a) {
+        };
+        $collector2 = function ($b) {
+        };
 
         register_pdo_collector($pdo, $collector1);
         register_pdo_collector($pdo, $collector2, true, true);
@@ -101,7 +105,8 @@ class RegisterTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        $collector = function () {};
+        $collector = function () {
+        };
 
         register_pdo_collector($pdo, $collector, true);
     }
@@ -110,7 +115,8 @@ class RegisterTest extends TestCase
     {
         $pdo = $this->pdo(false);
 
-        $collector = function () {};
+        $collector = function () {
+        };
 
         $result = register_pdo_collector($pdo, $collector, false);
 
@@ -122,8 +128,10 @@ class RegisterTest extends TestCase
     {
         $pdo = $this->pdo();
 
-        $collector1 = function ($a) {};
-        $collector2 = function ($b) {};
+        $collector1 = function ($a) {
+        };
+        $collector2 = function ($b) {
+        };
 
         register_pdo_collector($pdo, $collector1);
         register_pdo_collector($pdo, $collector2);
