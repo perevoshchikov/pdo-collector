@@ -136,14 +136,14 @@ class Profile
         foreach ($this->getParameters() as $key => $value) {
             $value = $this->formatParam($value);
 
-            if (\is_numeric($key)) {
-                $pos = \strpos($sql, '?');
-                $sql = \substr($sql, 0, (int) $pos)
-                    . $value
-                    . substr($sql, $pos + 1);
-            } else {
-                $sql = \str_replace($key, $value, $sql);
-            }
+            $s = \is_numeric($key)
+                ? '?'
+                : $key;
+
+            $pos = \strpos($sql, $s);
+            $sql = \substr($sql, 0, (int) $pos)
+                . $value
+                . substr($sql, $pos + \strlen($s));
         }
 
         return $sql;
