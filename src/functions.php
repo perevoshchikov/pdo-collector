@@ -2,6 +2,9 @@
 
 namespace Anper\Pdo\StatementCollector;
 
+use Anper\CallableAggregate\CallableAggregate;
+use Anper\CallableAggregate\CallableAggregateInterface;
+
 /**
  * @param \PDO $pdo
  * @param callable $collector
@@ -17,15 +20,11 @@ function register_pdo_collector(
     bool $throw = true,
     bool $prepend = false
 ): bool {
-    $connection = \spl_object_hash($pdo);
-
-    $collect = static function ($profile) use ($connection) {
-        Queue::collect($connection, $profile);
-    };
+    $collection = pdo_collector_collection($pdo);
 
     $result = $pdo->setAttribute(
         \PDO::ATTR_STATEMENT_CLASS,
-        [Statement::class, [$collect]]
+        [Statement::class, [$collection]]
     );
 
     if ($result === false && $throw) {
@@ -33,11 +32,9 @@ function register_pdo_collector(
     }
 
     if ($result) {
-        if ($prepend) {
-            Queue::unshift($connection, $collector);
-        } else {
-            Queue::push($connection, $collector);
-        }
+        $prepend
+            ? $collection->prepend($collector)
+            : $collection->append($collector);
     }
 
     return $result;
@@ -51,7 +48,13 @@ function register_pdo_collector(
  */
 function unregister_pdo_collector(\PDO $pdo, callable $collector): bool
 {
-    return Queue::remove(\spl_object_hash($pdo), $collector);
+    $collection = pdo_collector_collection($pdo);
+
+    if ($has = $collection->has($collector)) {
+        $collection->remove($collector);
+    }
+
+    return $has;
 }
 
 /**
@@ -61,7 +64,7 @@ function unregister_pdo_collector(\PDO $pdo, callable $collector): bool
  */
 function get_pdo_collectors(\PDO $pdo): array
 {
-    return Queue::get(\spl_object_hash($pdo));
+    return pdo_collector_collection($pdo)->all();
 }
 
 /**
@@ -71,5 +74,31 @@ function get_pdo_collectors(\PDO $pdo): array
  */
 function clear_pdo_collectors(\PDO $pdo): bool
 {
-    return Queue::clear(\spl_object_hash($pdo));
+    $collection = pdo_collector_collection($pdo);
+
+    if ($count = $collection->count()) {
+        $collection->clear();
+    }
+
+    return $count > 0;
+}
+
+/**
+ * @param \PDO $pdo
+ *
+ * @return CallableAggregateInterface
+ */
+function pdo_collector_collection(\PDO $pdo): CallableAggregateInterface
+{
+    static $collection = null;
+
+    if ($collection === null) {
+        $collection = new \SplObjectStorage();
+    }
+
+    if (isset($collection[$pdo])) {
+        return $collection[$pdo];
+    }
+
+    return $collection[$pdo] = new CallableAggregate();
 }
