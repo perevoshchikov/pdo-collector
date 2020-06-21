@@ -29,7 +29,13 @@ class Statement extends \PDOStatement
     }
 
     /**
-     * @inheritDoc
+     * @param mixed $column
+     * @param mixed $param
+     * @param int| null $type
+     * @param int|null $maxlen
+     * @param mixed|null $driverdata
+     *
+     * @return bool|void
      */
     public function bindColumn(
         $column,
@@ -44,7 +50,13 @@ class Statement extends \PDOStatement
     }
 
     /**
-     * @inheritDoc
+     * @param mixed $parameter
+     * @param mixed $variable
+     * @param int $data_type
+     * @param int|null $length
+     * @param null $driver_options
+     *
+     * @return bool|void
      */
     public function bindParam(
         $parameter,
@@ -59,7 +71,11 @@ class Statement extends \PDOStatement
     }
 
     /**
-     * @inheritDoc
+     * @param mixed $parameter
+     * @param mixed $value
+     * @param int $data_type
+     *
+     * @return bool|void
      */
     public function bindValue($parameter, $value, $data_type = PDO::PARAM_STR)
     {
@@ -69,7 +85,10 @@ class Statement extends \PDOStatement
     }
 
     /**
-     * @inheritDoc
+     * @param array|null $input_parameters
+     *
+     * @return bool
+     * @throws \Exception
      */
     public function execute($input_parameters = null)
     {

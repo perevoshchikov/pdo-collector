@@ -49,7 +49,7 @@ class Collector
     /**
      * @param Profile $profile
      */
-    public function __invoke(Profile $profile)
+    public function __invoke(Profile $profile): void
     {
         $this->profiles[] = $profile;
     }
