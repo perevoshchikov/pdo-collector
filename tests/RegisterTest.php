@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 use function Anper\Pdo\StatementCollector\clear_collectors;
 use function Anper\Pdo\StatementCollector\get_collectors;
 use function Anper\Pdo\StatementCollector\register_collector;
-use function Anper\Pdo\StatementCollector\unregister_collector;
 
 /**
  * Class RegisterPdoCollectorTest
@@ -122,26 +121,5 @@ class RegisterTest extends TestCase
 
         $this->assertNotContains($collector, get_collectors($pdo));
         $this->assertFalse($result);
-    }
-
-    public function testUnregister(): void
-    {
-        $pdo = $this->pdo();
-
-        $collector1 = function ($a) {
-        };
-        $collector2 = function ($b) {
-        };
-
-        register_collector($pdo, $collector1);
-        register_collector($pdo, $collector2);
-
-        $this->assertSame([$collector1, $collector2], get_collectors($pdo));
-
-        $result = unregister_collector($pdo, $collector1);
-
-        $this->assertTrue($result);
-
-        $this->assertEquals([$collector2], get_collectors($pdo));
     }
 }
