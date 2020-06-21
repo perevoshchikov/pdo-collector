@@ -25,7 +25,7 @@ class Collector
      */
     public function __construct(\PDO $pdo)
     {
-        register_pdo_collector($pdo, $this, true);
+        register_collector($pdo, $this, true);
 
         $this->pdo = $pdo;
     }

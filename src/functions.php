@@ -16,7 +16,7 @@ use function Anper\CallableAggregate\unregister_callback;
  * @return bool
  * @throws Exception
  */
-function register_pdo_collector(
+function register_collector(
     \PDO $pdo,
     callable $collector,
     bool $throw = true,
@@ -48,7 +48,7 @@ function register_pdo_collector(
  *
  * @return bool
  */
-function unregister_pdo_collector(\PDO $pdo, callable $collector): bool
+function unregister_collector(\PDO $pdo, callable $collector): bool
 {
     return unregister_callback($pdo, $collector);
 }
@@ -58,7 +58,7 @@ function unregister_pdo_collector(\PDO $pdo, callable $collector): bool
  *
  * @return array|callable[]
  */
-function get_pdo_collectors(\PDO $pdo): array
+function get_collectors(\PDO $pdo): array
 {
     return get_callbacks($pdo);
 }
@@ -68,7 +68,7 @@ function get_pdo_collectors(\PDO $pdo): array
  *
  * @return int
  */
-function clear_pdo_collectors(\PDO $pdo): int
+function clear_collectors(\PDO $pdo): int
 {
     return clear_callbacks($pdo);
 }

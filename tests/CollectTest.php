@@ -6,7 +6,7 @@ use Anper\Pdo\StatementCollector\Collector;
 use Anper\Pdo\StatementCollector\Profile;
 use PHPUnit\Framework\TestCase;
 
-use function Anper\Pdo\StatementCollector\register_pdo_collector;
+use function Anper\Pdo\StatementCollector\register_collector;
 
 /**
  * Class CollectTest
@@ -24,7 +24,7 @@ class CollectTest extends TestCase
         return [
             [function (\PDO $pdo, string $sql, array $params) {
                 $profile = null;
-                register_pdo_collector($pdo, function ($p) use (&$profile) {
+                register_collector($pdo, function ($p) use (&$profile) {
                     $profile = $p;
                 });
 

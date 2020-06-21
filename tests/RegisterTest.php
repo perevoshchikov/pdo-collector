@@ -7,10 +7,10 @@ use Anper\Pdo\StatementCollector\Exception;
 use Anper\Pdo\StatementCollector\Statement;
 use PHPUnit\Framework\TestCase;
 
-use function Anper\Pdo\StatementCollector\clear_pdo_collectors;
-use function Anper\Pdo\StatementCollector\get_pdo_collectors;
-use function Anper\Pdo\StatementCollector\register_pdo_collector;
-use function Anper\Pdo\StatementCollector\unregister_pdo_collector;
+use function Anper\Pdo\StatementCollector\clear_collectors;
+use function Anper\Pdo\StatementCollector\get_collectors;
+use function Anper\Pdo\StatementCollector\register_collector;
+use function Anper\Pdo\StatementCollector\unregister_collector;
 
 /**
  * Class RegisterPdoCollectorTest
@@ -26,7 +26,7 @@ class RegisterTest extends TestCase
     {
         $this->parentSetUp();
 
-        clear_pdo_collectors($this->pdo);
+        clear_collectors($this->pdo);
     }
 
     /**
@@ -50,15 +50,15 @@ class RegisterTest extends TestCase
         $collector2 = function ($b) {
         };
 
-        $result1 = register_pdo_collector($this->pdo, $collector1);
-        $result2 = register_pdo_collector($this->pdo, $collector2);
+        $result1 = register_collector($this->pdo, $collector1);
+        $result2 = register_collector($this->pdo, $collector2);
 
         $this->assertTrue($result1);
         $this->assertTrue($result2);
 
         $this->assertStatement();
 
-        $this->assertSame([$collector1, $collector2], get_pdo_collectors($this->pdo));
+        $this->assertSame([$collector1, $collector2], get_collectors($this->pdo));
     }
 
     public function testRegisterClassCollector(): void
@@ -68,7 +68,7 @@ class RegisterTest extends TestCase
 
         $this->assertStatement();
 
-        $this->assertSame([$collector1, $collector2], get_pdo_collectors($this->pdo));
+        $this->assertSame([$collector1, $collector2], get_collectors($this->pdo));
     }
 
     /**
@@ -93,10 +93,10 @@ class RegisterTest extends TestCase
         $collector2 = function ($b) {
         };
 
-        register_pdo_collector($pdo, $collector1);
-        register_pdo_collector($pdo, $collector2, true, true);
+        register_collector($pdo, $collector1);
+        register_collector($pdo, $collector2, true, true);
 
-        $this->assertSame([$collector2, $collector1], get_pdo_collectors($pdo));
+        $this->assertSame([$collector2, $collector1], get_collectors($pdo));
     }
 
     public function testRegisterWithException(): void
@@ -108,7 +108,7 @@ class RegisterTest extends TestCase
         $collector = function () {
         };
 
-        register_pdo_collector($pdo, $collector, true);
+        register_collector($pdo, $collector, true);
     }
 
     public function testFailedRegister(): void
@@ -118,9 +118,9 @@ class RegisterTest extends TestCase
         $collector = function () {
         };
 
-        $result = register_pdo_collector($pdo, $collector, false);
+        $result = register_collector($pdo, $collector, false);
 
-        $this->assertNotContains($collector, get_pdo_collectors($pdo));
+        $this->assertNotContains($collector, get_collectors($pdo));
         $this->assertFalse($result);
     }
 
@@ -133,15 +133,15 @@ class RegisterTest extends TestCase
         $collector2 = function ($b) {
         };
 
-        register_pdo_collector($pdo, $collector1);
-        register_pdo_collector($pdo, $collector2);
+        register_collector($pdo, $collector1);
+        register_collector($pdo, $collector2);
 
-        $this->assertSame([$collector1, $collector2], get_pdo_collectors($pdo));
+        $this->assertSame([$collector1, $collector2], get_collectors($pdo));
 
-        $result = unregister_pdo_collector($pdo, $collector1);
+        $result = unregister_collector($pdo, $collector1);
 
         $this->assertTrue($result);
 
-        $this->assertEquals([$collector2], get_pdo_collectors($pdo));
+        $this->assertEquals([$collector2], get_collectors($pdo));
     }
 }

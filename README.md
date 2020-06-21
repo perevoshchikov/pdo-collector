@@ -30,13 +30,13 @@ foreach($collector->getProfiles() as $profile) {
 
 ``` php
 use Anper\Pdo\StatementCollector\Profile;
-use function Anper\Pdo\StatementCollector\register_pdo_collector;
+use function Anper\Pdo\StatementCollector\register_collector;
 
 $collector = function (Profile $profile) {
     var_dump($profile);
 };
 
-register_pdo_collector($pdo, $collector);
+register_collector($pdo, $collector);
 ```
 
 ## Test
