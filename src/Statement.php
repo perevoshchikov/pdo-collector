@@ -6,7 +6,7 @@ use PDO;
 
 /**
  * Class Statement
- * @package Anper\PdoCollector
+ * @package Anper\Pdo\StatementCollector
  */
 class Statement extends \PDOStatement
 {

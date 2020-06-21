@@ -4,7 +4,7 @@ namespace Anper\Pdo\StatementCollector;
 
 /**
  * Class Collector
- * @package Anper\PdoCollector
+ * @package Anper\Pdo\StatementCollector
  */
 class Collector
 {
