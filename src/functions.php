@@ -2,8 +2,10 @@
 
 namespace Anper\Pdo\StatementCollector;
 
-use Anper\CallableAggregate\CallableAggregate;
-use Anper\CallableAggregate\CallableAggregateInterface;
+use function Anper\CallableAggregate\aggregate;
+use function Anper\CallableAggregate\clear_callbacks;
+use function Anper\CallableAggregate\get_callbacks;
+use function Anper\CallableAggregate\unregister_callback;
 
 /**
  * @param \PDO $pdo
@@ -20,7 +22,7 @@ function register_pdo_collector(
     bool $throw = true,
     bool $prepend = false
 ): bool {
-    $collection = pdo_collector_collection($pdo);
+    $collection = aggregate($pdo);
 
     $result = $pdo->setAttribute(
         \PDO::ATTR_STATEMENT_CLASS,
@@ -48,13 +50,7 @@ function register_pdo_collector(
  */
 function unregister_pdo_collector(\PDO $pdo, callable $collector): bool
 {
-    $collection = pdo_collector_collection($pdo);
-
-    if ($has = $collection->has($collector)) {
-        $collection->remove($collector);
-    }
-
-    return $has;
+    return unregister_callback($pdo, $collector);
 }
 
 /**
@@ -64,41 +60,15 @@ function unregister_pdo_collector(\PDO $pdo, callable $collector): bool
  */
 function get_pdo_collectors(\PDO $pdo): array
 {
-    return pdo_collector_collection($pdo)->all();
+    return get_callbacks($pdo);
 }
 
 /**
  * @param \PDO $pdo
  *
- * @return bool
+ * @return int
  */
-function clear_pdo_collectors(\PDO $pdo): bool
+function clear_pdo_collectors(\PDO $pdo): int
 {
-    $collection = pdo_collector_collection($pdo);
-
-    if ($count = $collection->count()) {
-        $collection->clear();
-    }
-
-    return $count > 0;
-}
-
-/**
- * @param \PDO $pdo
- *
- * @return CallableAggregateInterface
- */
-function pdo_collector_collection(\PDO $pdo): CallableAggregateInterface
-{
-    static $collection = null;
-
-    if ($collection === null) {
-        $collection = new \SplObjectStorage();
-    }
-
-    if (isset($collection[$pdo])) {
-        return $collection[$pdo];
-    }
-
-    return $collection[$pdo] = new CallableAggregate();
+    return clear_callbacks($pdo);
 }
