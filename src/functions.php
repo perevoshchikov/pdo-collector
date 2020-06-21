@@ -2,7 +2,7 @@
 
 namespace Anper\Pdo\StatementCollector;
 
-use function Anper\CallableAggregate\aggregate;
+use function Anper\CallableAggregate\aggregator;
 use function Anper\CallableAggregate\clear_callbacks;
 use function Anper\CallableAggregate\get_callbacks;
 use function Anper\CallableAggregate\unregister_callback;
@@ -22,7 +22,7 @@ function register_pdo_collector(
     bool $throw = true,
     bool $prepend = false
 ): bool {
-    $collection = aggregate($pdo);
+    $collection = aggregator($pdo);
 
     $result = $pdo->setAttribute(
         \PDO::ATTR_STATEMENT_CLASS,
