@@ -34,7 +34,7 @@ class CollectTest extends TestCase
                 return $profile;
             }],
             [function (\PDO $pdo, string $sql, array $params) {
-                $collector = new Collector($pdo);
+                register_collector($pdo, $collector = new Collector());
 
                 $sth = $pdo->prepare($sql);
                 $sth->execute($params);

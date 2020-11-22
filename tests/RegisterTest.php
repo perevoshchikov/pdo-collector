@@ -60,16 +60,6 @@ class RegisterTest extends TestCase
         $this->assertSame([$collector1, $collector2], get_collectors($this->pdo));
     }
 
-    public function testRegisterClassCollector(): void
-    {
-        $collector1 = new Collector($this->pdo);
-        $collector2 = new Collector($this->pdo);
-
-        $this->assertStatement();
-
-        $this->assertSame([$collector1, $collector2], get_collectors($this->pdo));
-    }
-
     /**
      * @param $collector
      */

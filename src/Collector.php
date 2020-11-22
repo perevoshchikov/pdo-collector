@@ -14,31 +14,6 @@ class Collector
     protected $profiles = [];
 
     /**
-     * @var \PDO
-     */
-    protected $pdo;
-
-    /**
-     * @param \PDO $pdo
-     *
-     * @throws Exception
-     */
-    public function __construct(\PDO $pdo)
-    {
-        register_collector($pdo, $this, true);
-
-        $this->pdo = $pdo;
-    }
-
-    /**
-     * @return \PDO
-     */
-    public function getPdo(): \PDO
-    {
-        return $this->pdo;
-    }
-
-    /**
      * @return Profile[]
      */
     public function getProfiles(): array
