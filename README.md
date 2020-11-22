@@ -14,10 +14,11 @@ $ composer require anper/pdo-statement-collector
 
 ``` php
 use Anper\Pdo\StatementCollector\Collector;
+use function Anper\Pdo\StatementCollector\register_collector;
 
 $pdo = new \PDO(...);
 
-$collector = new Collector($pdo);
+register_collector($pdo, $collector = new Collector());
 
 // pdo queries...
 
