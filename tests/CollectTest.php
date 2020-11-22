@@ -58,16 +58,16 @@ class CollectTest extends TestCase
         /** @var Profile $profile */
         $profile = $collector($this->pdo, $sql, $params);
 
-        $this->assertNotNull($profile);
-        $this->assertEquals($profile->getSql(), $sql);
-        $this->assertSame($profile->getRowCount(), 1);
-        $this->assertTrue($profile->getMemoryUsage() > 0);
-        $this->assertTrue($profile->getDuration() > 0);
-        $this->assertTrue($profile->isSuccess());
-        $this->assertFalse($profile->isError());
-        $this->assertNull($profile->getException());
-        $this->assertSame($profile->getParameters(), $params);
-        $this->assertSame($profile->getSqlWithParameters(), 'select 1,2,3');
+        self::assertNotNull($profile);
+        self::assertEquals($profile->getSql(), $sql);
+        self::assertSame($profile->getRowCount(), 1);
+        self::assertTrue($profile->getMemoryUsage() > 0);
+        self::assertTrue($profile->getDuration() > 0);
+        self::assertTrue($profile->isSuccess());
+        self::assertFalse($profile->isError());
+        self::assertNull($profile->getException());
+        self::assertSame($profile->getParameters(), $params);
+        self::assertSame($profile->getSqlWithParameters(), 'select 1,2,3');
     }
 
     /**
@@ -82,15 +82,15 @@ class CollectTest extends TestCase
         /** @var Profile $profile */
         $profile = $collector($this->pdo, $sql, $params);
 
-        $this->assertNotNull($profile);
-        $this->assertEquals($profile->getSql(), $sql);
-        $this->assertSame($profile->getRowCount(), 0);
-        $this->assertTrue($profile->getMemoryUsage() > 0);
-        $this->assertTrue($profile->getDuration() > 0);
-        $this->assertFalse($profile->isSuccess());
-        $this->assertTrue($profile->isError());
-        $this->assertNotNull($profile->getException());
-        $this->assertSame($profile->getParameters(), $params);
-        $this->assertSame($profile->getSqlWithParameters(), 'select 1,2,3 from');
+        self::assertNotNull($profile);
+        self::assertEquals($profile->getSql(), $sql);
+        self::assertSame($profile->getRowCount(), 0);
+        self::assertTrue($profile->getMemoryUsage() > 0);
+        self::assertTrue($profile->getDuration() > 0);
+        self::assertFalse($profile->isSuccess());
+        self::assertTrue($profile->isError());
+        self::assertNotNull($profile->getException());
+        self::assertSame($profile->getParameters(), $params);
+        self::assertSame($profile->getSqlWithParameters(), 'select 1,2,3 from');
     }
 }
