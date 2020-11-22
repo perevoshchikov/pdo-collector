@@ -2,6 +2,8 @@
 
 namespace Anper\Pdo\StatementCollector\Tests;
 
+use function Anper\Pdo\StatementCollector\clear_collectors;
+
 /**
  * Trait PdoTrait
  * @package Anper\PdoCollector\Tests
@@ -20,6 +22,8 @@ trait PdoTrait
             \getenv('DB_USER'),
             \getenv('DB_PASSWD')
         );
+
+        clear_collectors($this->pdo);
     }
 
     protected function tearDown(): void

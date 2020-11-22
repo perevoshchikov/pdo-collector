@@ -5,7 +5,6 @@ namespace Anper\Pdo\StatementCollector\Tests;
 use Anper\Pdo\StatementCollector\Statement;
 use PHPUnit\Framework\TestCase;
 
-use function Anper\Pdo\StatementCollector\clear_collectors;
 use function Anper\Pdo\StatementCollector\get_collectors;
 use function Anper\Pdo\StatementCollector\register_collector;
 use function Anper\Pdo\StatementCollector\unregister_collector;
@@ -13,28 +12,14 @@ use function Anper\Pdo\StatementCollector\unregister_collector;
 class UnregisterTest extends TestCase
 {
     use PdoTrait {
-        setUp as parentSetUp;
+        setUp as pdoSetUp;
     }
-
-    /**
-     * @var array
-     */
-    protected $collectors = [];
+    use CollectorsTrait;
 
     protected function setUp(): void
     {
-        $this->parentSetUp();
-
-        clear_collectors($this->pdo);
-
-        $this->collectors = [
-            function ($a) {
-                //
-            },
-            function ($b) {
-                //
-            },
-        ];
+        $this->setCollectors();
+        $this->pdoSetUp();
     }
 
     public function testUnregister(): void
