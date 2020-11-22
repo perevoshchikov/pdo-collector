@@ -50,7 +50,13 @@ function register_collector(
  */
 function unregister_collector(\PDO $pdo, callable $collector): bool
 {
-    return unregister_callback($pdo, $collector);
+    $result = unregister_callback($pdo, $collector);
+
+    if (aggregator($pdo)->count() === 0) {
+        $result = $pdo->setAttribute(\PDO::ATTR_STATEMENT_CLASS, [\PDOStatement::class]);
+    }
+
+    return $result;
 }
 
 /**
