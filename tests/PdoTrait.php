@@ -23,6 +23,8 @@ trait PdoTrait
             \getenv('DB_PASSWD')
         );
 
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
+
         clear_collectors($this->pdo);
     }
 
