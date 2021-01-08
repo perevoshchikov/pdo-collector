@@ -18,7 +18,7 @@ trait PdoTrait
     protected function setUp(): void
     {
         $this->pdo = new \PDO(
-            \getenv('DB_DSN'),
+            \sprintf('mysql:host=%s;port=%d', \getenv('DB_HOST'), \getenv('DB_PORT')),
             \getenv('DB_USER'),
             \getenv('DB_PASSWD')
         );
